@@ -1,0 +1,23 @@
+@import '../../utils/variables.scss';
+
+.room-container{
+  width: 80%;
+  height: 100%;
+  // background-color: green;
+  display: flex;
+  flex-direction: row;
+
+  .room-chat-section{
+    width: 75%;
+    height: 100%;
+    // background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .room-info-section{
+    width: 25%;
+    height: 100%;
+    // background-color: yellow;
+  }
+}

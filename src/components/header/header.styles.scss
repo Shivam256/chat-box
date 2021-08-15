@@ -1,0 +1,17 @@
+@import "../../utils/variables.scss";
+
+.header{
+  width: 94%;
+  box-sizing: border-box;
+  // min-width: 94%;
+  max-width: 94%;
+  margin: 0 auto;
+  height: fit-content;
+  padding: 0.5em 0.5em;
+  font-size: 1.5em;
+  background-color: $light-ui-white;
+  margin-top: 10px;
+  box-shadow: $shadow2;
+  color:$light-ui-purple;
+  font-weight: 600;
+}

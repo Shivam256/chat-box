@@ -1,0 +1,18 @@
+@import '../../utils/variables.scss';
+
+.chat-box{
+  width: 94%;
+  height: 75%;
+  margin: 0 auto;
+  background-color: $light-ui-white;
+  box-shadow: $shadow2;
+  max-height: 75%;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 20px;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
+  // background-color: red;
+}

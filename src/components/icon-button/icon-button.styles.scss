@@ -1,0 +1,36 @@
+@import "../../utils/variables.scss";
+
+.icon-button{
+  width: 80%;
+  // height: 7vh;
+  padding: 0.5em 0;
+  // background-color: $light-ui-purple;
+  background: linear-gradient(90deg, #7209b7 0%, #b5179e 100%);
+  margin: 20px auto  0 auto;
+  font-size: 1em;
+  letter-spacing: 2px;
+  font-weight: 600;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  // justify-content: space-between;
+  color: $light-ui-white;
+  cursor: pointer;
+
+  
+
+  .MuiSvgIcon-root{
+    font-size: 2em;
+    color: $light-ui-white;
+    margin: 0 10px;
+  }
+  
+
+  &:hover{
+    background: $pink-gradient;
+  } 
+
+  
+
+  
+}

@@ -1,0 +1,49 @@
+@import '../../utils/variables.scss';
+
+input:focus{
+  outline: none;
+}
+
+.custom-input{
+  width: 94%;
+  height: 8%;
+  margin: 0 auto 20px auto;
+  background-color: $light-ui-white;
+  box-shadow: $shadow2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 1em;
+  justify-content: space-between;
+  
+  form{
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    button{
+      border: none;
+      background-color: $light-ui-white;
+
+      .MuiSvgIcon-root{
+        font-size:1.2em;
+        color:$light-ui-purple
+      }
+    }
+  }
+
+  .message-input{
+    width: 90%;
+    border: none;
+    border-bottom: 2px solid $light-ui-purple;
+    font-size: 1.2em;
+    color:$light-ui-pink
+  }
+  .MuiSvgIcon-root{
+    font-size: 1.2em;
+    color:$light-ui-purple;
+  }
+}

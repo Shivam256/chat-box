@@ -1,0 +1,26 @@
+@import '../../utils/variables.scss';
+
+.room-info-card{
+  width: 94%;
+  margin: 10px auto 0 auto;
+  height: 40%;
+  background-color: $light-ui-white;
+  box-shadow: $shadow2;
+  margin-right: 20px;
+
+  .room-info-heading{
+    width: 100%;
+    height: fit-content;
+    padding: 10px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 2px solid $light-ui-purple;
+    font-weight: 600;
+    color:$light-ui-purple;
+    margin-bottom: 50px;
+  }
+
+}
