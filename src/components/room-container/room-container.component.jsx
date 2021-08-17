@@ -43,7 +43,6 @@ const RoomContainer = ({ room }) => {
       <div className="room-chat-section">
         <Header text={room.name} />
         <ChatBox messages={messages}/>
-       
         <CustomInput />
       </div>
       <div className="room-info-section">

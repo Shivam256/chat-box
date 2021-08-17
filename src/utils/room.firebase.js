@@ -1,7 +1,7 @@
 import { firestore, default as firebase } from "../firebase/firebase.utils";
 
 export const getRoom = async (roomId) => {
-  console.log(roomId);
+  // console.log(roomId);
   let url = `/rooms/${String(roomId)}`;
   if (String(roomId)[0] === " ") {
     url = `/rooms/${String(roomId).slice(1)}`;
@@ -47,7 +47,7 @@ export const getRoomMessages = async (roomId) => {
   const msgRef = firestore.doc(url).collection("messages");
   let messages = [];
   let copyMessages = [];
-  const observer = msgRef.onSnapshot(
+  msgRef.onSnapshot(
     (snapshot) => {
       // messages = [...snapshot.docs]
       messages = snapshot.docs.map((doc) => doc.data());
@@ -58,7 +58,7 @@ export const getRoomMessages = async (roomId) => {
       console.log("error in istening messages!", err);
     }
   );
-  // console.log(copyMessages);
+
   return copyMessages;
 };
 
@@ -72,4 +72,41 @@ export const deleteMessagesFromRoom = async (roomId) =>{
 
   const msgSnap = await msgRef.get();
   console.log(msgSnap)
+}
+
+export const createNewRoom = async (name,description,imageURL,creatorId) =>{
+  console.log(`wrkjnw/${creatorId}`);
+  const room = {
+    name,
+    description,
+    imageURL,
+    creator:firestore.doc(`/users/${creatorId}`),
+    members:[firestore.doc(`/users/${creatorId}`)]
+  }
+  console.log(room);
+
+  const res = await firestore.collection('rooms').add(room).catch(err => {
+    console.log('error creating room',err);
+  })
+  console.log(res);
+  const currnetRoomDoc = firestore.doc(`/rooms/${res.id}`);
+
+  //add the room to the user
+  const userRef = firestore.doc(`/users/${creatorId}`);
+  const userSnap = userRef.get();
+  const currentRooms = (await userSnap).data().rooms;
+  const userRes = await userRef.set({
+    rooms:[...currentRooms,currnetRoomDoc]
+  },{merge:true})
+  
+
+}
+
+export const getAllRooms = async () => {
+  const roomsRef = firestore.collection('rooms');
+  const roomSnap = await roomsRef.get();
+
+  const rooms = roomSnap.docs.map(async doc => await getRoom(doc.id))
+  // console.log(rooms);
+  return rooms;
 }

@@ -1,5 +1,6 @@
 @import '../../utils//variables.scss';
 
+
 .popup-container{
   position: absolute;
   width: 40%;
@@ -11,5 +12,31 @@
   left: 30%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  // padding: 30px;
+  transform: scale(0);
+  animation: popupAnimate 0.5s ease-in-out forwards;
+
+  .close-popup-btn{
+    .MuiSvgIcon-root{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5em;
+      cursor: pointer;
+      color: $light-ui-purple;
   
+      &:hover{
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+}
+
+@keyframes popupAnimate {
+  to{
+    transform: scale(1);
+  }
 }

@@ -1,0 +1,73 @@
+@import '../../utils/variables.scss';
+
+@mixin btnStyles{
+  width: 10%;
+  height: 100%;
+  padding: 2px 20px;
+  color:$light-ui-white;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+
+  &:hover{
+    transform: scale(1.05);
+  }
+}
+
+.room-overview-container{
+  width: 100%;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: $light-ui-white;
+  border: 2px solid $light-ui-purple;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+
+
+  .room-name{
+    width: 50%;
+    height: 100%;
+    color:$light-ui-purple;
+    font: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // justify-content: space-between;
+
+    .MuiAvatar-root{
+      transform: scale(0.8);
+      margin-right: 20px;
+    }
+
+  }
+
+  .room-members{
+    color: $light-ui-purple;
+    width: 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .MuiSvgIcon-root{
+      position:unset;
+    }
+  }
+
+  .room-join-btn{
+   @include btnStyles;
+   background-color: $light-ui-pink;
+  }
+  .room-joined-btn{
+    @include btnStyles;
+    background-color: $light-ui-purple;
+    
+
+  }
+
+}
