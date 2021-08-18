@@ -31,7 +31,7 @@ const Room = ({setCurrentRoom}) => {
       console.log(room);
       setRoom(res);
       // console.log(room);
-      setCurrentRoom(room);
+      // setCurrentRoom(room);
       setLoading(false);
     })
     :setRoom({})

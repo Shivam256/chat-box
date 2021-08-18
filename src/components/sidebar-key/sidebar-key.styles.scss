@@ -51,5 +51,10 @@ a{
 
 .sidebar-key-selected{
   background:$purple-gradient;
-  color:white;
+
+  p{
+    color:$light-ui-white;
+    font-weight: 600;
+
+  }
 }

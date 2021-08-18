@@ -8,3 +8,13 @@ export const selectCurrentUser = createSelector(
   user => user.currentUser
 )
 
+export const selectFindUserHidden = createSelector(
+  [selectUser],
+  user => user.findUserHidden
+)
+
+export const selectSettingsHidden = createSelector(
+  [selectUser],
+  user => user.settingsHidden
+)
+

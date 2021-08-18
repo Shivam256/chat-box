@@ -103,10 +103,11 @@ const Sidebar = ({
             imageUrl={room.imageURL?room.imageURL:"https://i.pinimg.com/736x/80/3d/9d/803d9df3f128eed08db2a58f6b6d6659.jpg"}
             pathName={`/rooms/${room.uid}`}
             key={room.uid}
+            isSelected={currentRoom?(currentRoom.uid === room.uid):false}
           />
         ))}
       </div>
-      ;
+      
       <IconButton
         iconName="add"
         text="CREATE A ROOM"

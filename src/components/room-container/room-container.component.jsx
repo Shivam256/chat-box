@@ -15,10 +15,11 @@ import { getRoomMessages,deleteMessagesFromRoom,sendMessageToRoom,filterId} from
 //redux
 import {selectCurrentUser} from '../../redux/user/user.selector';
 import {selectCurrentRoom} from '../../redux/room/room.selector';
+import {setCurrentRoom} from '../../redux/room/room.actions';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 
-const RoomContainer = ({ room,currentUser }) => {
+const RoomContainer = ({ room,currentUser,setCurrentRoom }) => {
   const [messages, setMessages] = useState([]);
   const [message,setMessage] = useState("");
 
@@ -34,7 +35,7 @@ const RoomContainer = ({ room,currentUser }) => {
       url = `/rooms/${String(room.uid).slice(1)}`;
     }
     
-    
+    setCurrentRoom(room);
     firestore
       .doc(url)
       .collection("messages")
@@ -78,5 +79,8 @@ const RoomContainer = ({ room,currentUser }) => {
 const mapStateToProps = createStructuredSelector({
   currentUser:selectCurrentUser,
 })
+const mapDispatchToProps = dispatch =>({
+  setCurrentRoom:room=>dispatch(setCurrentRoom(room))
+})
 
-export default connect(mapStateToProps,null)(RoomContainer);
+export default connect(mapStateToProps,mapDispatchToProps)(RoomContainer);
