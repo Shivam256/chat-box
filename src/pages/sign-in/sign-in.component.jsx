@@ -12,13 +12,13 @@ const SignIn = ({setCurrentUser}) => {
   // let unsubscribe = null;
   const signIn = async () => {
     const userObj = await signInWithGoogle();
-    setCurrentUser(userObj.user);
-    // console.log(userObj);
+    // setCurrentUser(userObj.user);
+    console.log(userObj.user);
     // const userRef =await createUserDoc(userObj.user);
     const userRef = await saveUserDoc(userObj.user);
     const userSnap = await userRef.get();
-    console.log(userSnap.data());
-    
+    // console.log(userSnap.data());
+    setCurrentUser({...userSnap.data(),uid:userObj.user.uid});
     
     
   }

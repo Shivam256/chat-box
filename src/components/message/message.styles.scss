@@ -21,6 +21,7 @@
     .message{
       width: fit-content;
       height: fit-content;
+      max-width: 100%;
       box-sizing: border-box;
       padding: 5px 10px;
       background: $pink-gradient;

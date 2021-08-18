@@ -6,7 +6,7 @@ input:focus{
 
 .custom-input{
   width: 94%;
-  height: 8%;
+  height: 100%;
   margin: 0 auto 20px auto;
   background-color: $light-ui-white;
   box-shadow: $shadow2;
@@ -17,23 +17,19 @@ input:focus{
   padding: 0 1em;
   justify-content: space-between;
   
-  form{
-    width: 85%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+ 
+    
 
-    button{
-      border: none;
-      background-color: $light-ui-white;
+  .send-msg-btn{
+    border: none;
+    background-color: $light-ui-white;
 
-      .MuiSvgIcon-root{
-        font-size:1.2em;
-        color:$light-ui-purple
-      }
+    .MuiSvgIcon-root{
+      font-size:1.2em;
+      color:$light-ui-purple
     }
   }
+  
 
   .message-input{
     width: 90%;

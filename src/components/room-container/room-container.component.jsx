@@ -10,20 +10,31 @@ import RoomInfo from "../room-info/room-info.component";
 //utils
 // import {getRoom,getRoomMessages} from '../../utils/room.firebase';
 import { firestore } from "../../firebase/firebase.utils";
-import { getRoomMessages,deleteMessagesFromRoom} from "../../utils/room.firebase";
+import { getRoomMessages,deleteMessagesFromRoom,sendMessageToRoom,filterId} from "../../utils/room.firebase";
 
-const RoomContainer = ({ room }) => {
+//redux
+import {selectCurrentUser} from '../../redux/user/user.selector';
+import {selectCurrentRoom} from '../../redux/room/room.selector';
+import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
+
+const RoomContainer = ({ room,currentUser }) => {
   const [messages, setMessages] = useState([]);
+  const [message,setMessage] = useState("");
 
   useEffect(() => {
     // getRoomMessages()
     // .then(res => {
     //   console.log(res);
     // })
+    // console.log(`/wekfjwe/${currentUser.uid}`);
     let url = `/rooms/${String(room.uid)}`;
+    
     if(String(room.uid)[0] === ' '){
       url = `/rooms/${String(room.uid).slice(1)}`;
     }
+    
+    
     firestore
       .doc(url)
       .collection("messages")
@@ -36,14 +47,26 @@ const RoomContainer = ({ room }) => {
       
   }, [room]);
 
- 
+  const handleChange = (e) => {
+    setMessage(e.target.value);
+    // console.log(e.target.value);
+  }
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    
+    await sendMessageToRoom(filterId(room.uid),message,currentUser.uid);
+    // console.log(message);
+    setMessage("");
+  }
  
   return (
     <div className="room-container">
       <div className="room-chat-section">
         <Header text={room.name} />
         <ChatBox messages={messages}/>
-        <CustomInput />
+        <form onSubmit={handleSubmit}>
+          <CustomInput onChange={handleChange} value={message}/>
+        </form>
       </div>
       <div className="room-info-section">
         <RoomInfo room={room} />
@@ -52,4 +75,8 @@ const RoomContainer = ({ room }) => {
   );
 };
 
-export default RoomContainer;
+const mapStateToProps = createStructuredSelector({
+  currentUser:selectCurrentUser,
+})
+
+export default connect(mapStateToProps,null)(RoomContainer);

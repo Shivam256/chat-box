@@ -9,9 +9,9 @@ import FormInput from "../form-input/form-input.component";
 import RoomOverview from "../room-overview/room-overview.component";
 
 //utils
-import { getUserRooms } from "../../utils/user.firebase";
+import { getUserRooms,getUser } from "../../utils/user.firebase";
 import { getRoom,createNewRoom ,getAllRooms} from "../../utils/room.firebase";
-import { useLocation } from "react-router-dom";
+import { useLocation ,Link} from "react-router-dom";
 
 //redux
 import { connect } from "react-redux";
@@ -26,6 +26,7 @@ import {
   toggleCreateRoomHidden,
   toggleJoinRoomHidden,
 } from "../../redux/room/room.actions";
+import {setCurrentUser} from '../../redux/user/user.actions';
 
 const Sidebar = ({
   currentUser,
@@ -33,7 +34,8 @@ const Sidebar = ({
   createRoomHidden,
   joinRoomHidden,
   toggleCreateRoomHidden,
-  toggleJoinRoomHidden
+  toggleJoinRoomHidden,
+  setCurrentUser
 }) => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState({});
@@ -59,7 +61,7 @@ const Sidebar = ({
     getAllRooms()
     .then(res =>{
       Promise.all(res).then(result =>{
-        console.log(result);
+        // console.log(result);
         setAllRooms(result);
       })
     })
@@ -70,7 +72,19 @@ const Sidebar = ({
     e.preventDefault();
     // console.log(roomInfo);
     const {roomName,roomDes,roomImgURL} = roomInfo;
-    await createNewRoom(roomName,roomDes,roomImgURL,currentUser.uid)
+    await createNewRoom(roomName,roomDes,roomImgURL,currentUser.uid);
+
+    getUser(currentUser.uid)
+    .then(res =>{
+      setCurrentUser(res);
+    })
+
+    toggleCreateRoomHidden();
+    setAllRooms({
+      roomName:"",
+      roomDes:"",
+      roomImgURL:""
+    })
     
   };
   const handleChange = (e) => {
@@ -81,7 +95,7 @@ const Sidebar = ({
 
   return (
     <div className="sidebar">
-      <div className="home-btn">HOME</div>
+     <Link to='/home'> <div className="home-btn">HOME</div></Link>
       <div className="sidebar-key-container">
         {rooms.map((room) => (
           <SidebarKey
@@ -123,7 +137,7 @@ const Sidebar = ({
                 onChange={handleChange}
                 value={roomInfo.roomImgURL}
               />
-              <button type="submit" className="create-room-btn" onClick={toggleCreateRoomHidden}>
+              <button type="submit" className="create-room-btn">
                 CREATE
               </button>
             </form>
@@ -163,6 +177,7 @@ const mapStatetoProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   toggleCreateRoomHidden: () => dispatch(toggleCreateRoomHidden()),
   toggleJoinRoomHidden: () => dispatch(toggleJoinRoomHidden()),
+  setCurrentUser:user=>dispatch(setCurrentUser(user))
 });
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Sidebar);

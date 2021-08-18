@@ -78,7 +78,8 @@ export const saveUserDoc = async (user) => {
         username:displayName,
         email,
         profilePic:photoURL,
-        createdAt
+        createdAt,
+        rooms:[],
       })
     }catch(err){
       console.log('error creating user!',err);

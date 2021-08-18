@@ -1,4 +1,5 @@
 import { firestore, default as firebase } from "../firebase/firebase.utils";
+import { getUser } from "./user.firebase";
 
 export const getRoom = async (roomId) => {
   // console.log(roomId);
@@ -36,6 +37,14 @@ const copyArr = (arr1, arr2) => {
     arr2.push(temp);
   }
 };
+
+export const filterId = (id) => {
+  if(String(id)[0] === ' '){
+    return String(id).slice(1);
+  }else{
+    return id;
+  }
+}
 
 
 
@@ -110,3 +119,13 @@ export const getAllRooms = async () => {
   // console.log(rooms);
   return rooms;
 }
+
+export const getRoomMembers = async (roomId) => {
+  const id = filterId(roomId);
+  const roomRef = firestore.doc(`/rooms/${id}`);
+
+  const roomSnap = await roomRef.get();
+  const members = roomSnap.data().members.map(async member =>await getUser(member.id) );
+  return members;
+}
+

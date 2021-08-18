@@ -8,42 +8,22 @@ import SendIcon from '@material-ui/icons/Send';
 import {IconButton} from '@material-ui/core'
 
 //utils
-import {sendMessageToRoom} from '../../utils/room.firebase';
+
 
 //redux
-import {selectCurrentUser} from '../../redux/user/user.selector';
-import {selectCurrentRoom} from '../../redux/room/room.selector';
-import {connect} from 'react-redux';
-import {createStructuredSelector} from 'reselect';
 
-const CustomInput = ({currentUser,currentRoom}) => {
-  const [message,setMessage] = useState("");
 
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  }
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    console.log(currentRoom.uid);
-    await sendMessageToRoom(currentRoom.uid,message,currentUser.uid);
-    console.log(message);
-    setMessage("");
-  }
+const CustomInput = ({...props}) => {
   return(
     <div className="custom-input">
       <IconButton><AddCircleOutlineIcon/></IconButton>
-      <form onSubmit={handleSubmit}>
-        <input type="text" className="message-input" onChange={handleChange} value={message}/>
-        <button type="submit"><IconButton><SendIcon/></IconButton></button>
-      </form>
+      <input type="text" className="message-input" {...props} />
+      <button type="submit" className="send-msg-btn"><IconButton><SendIcon/></IconButton></button>
       <IconButton><InsertEmoticonIcon/></IconButton>
     </div>
   )
 }
 
-const mapStateToProps = createStructuredSelector({
-  currentUser:selectCurrentUser,
-  currentRoom:selectCurrentRoom
-})
 
-export default connect(mapStateToProps,null)(CustomInput);
+
+export default CustomInput;

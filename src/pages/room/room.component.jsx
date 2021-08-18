@@ -6,6 +6,9 @@ import {useParams} from 'react-router-dom';
 import Sidebar from '../../components/sidebar/sidebar.component';
 import RoomContainer from '../../components/room-container/room-container.component';
 
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 //utils
 import {getRoom} from '../../utils/room.firebase';
 
@@ -14,10 +17,13 @@ import {connect} from 'react-redux';
 import {setCurrentRoom} from '../../redux/room/room.actions';
 
 
+
+
 const Room = ({setCurrentRoom}) => {
   const {id} = useParams();
   console.log(id);
   const [room,setRoom] = useState({});
+  const [loading,setLoading] = useState(true);
   useEffect(()=>{
     id?
     getRoom(id)
@@ -26,6 +32,7 @@ const Room = ({setCurrentRoom}) => {
       setRoom(res);
       // console.log(room);
       setCurrentRoom(room);
+      setLoading(false);
     })
     :setRoom({})
   },[id])
@@ -34,8 +41,9 @@ const Room = ({setCurrentRoom}) => {
     <div className="room">
       <Sidebar/>
       {
-        id?<RoomContainer room={room}/>:null
+        id?(!loading?<RoomContainer room={room}/>:<div className="loader-container">	<Loader type="TailSpin" color="#7209B7" height={80} width={80} /></div>):null
       }
+      
     </div>
   )
 }

@@ -1,17 +1,11 @@
-.room{
+@import '../../utils/variables.scss';
+
+.home{
   width: 100%;
   height: 100%;
   max-width: 100vw;
   max-height: 100vh;
-  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // background-color: blue;
-
-  
-}
-
-.loader-container{
-  margin: 20vh auto;
 }

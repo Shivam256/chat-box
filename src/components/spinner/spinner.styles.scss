@@ -1,0 +1,9 @@
+@import '../../utils/variables.scss';
+
+.spinner-body{
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  border: 10px solid $light-ui-purple;
+  
+}

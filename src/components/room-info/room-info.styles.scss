@@ -3,10 +3,15 @@
 .room-info-card{
   width: 94%;
   margin: 10px auto 0 auto;
-  height: 40%;
+  // height: fit-content;
+  height: 95%;
+  box-sizing: border-box;
+  max-height: 100%;
   background-color: $light-ui-white;
   box-shadow: $shadow2;
   margin-right: 20px;
+  display: flex;
+  flex-direction: column;
 
   .room-info-heading{
     width: 100%;
@@ -17,10 +22,61 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: 600;
     border-bottom: 2px solid $light-ui-purple;
     font-weight: 600;
     color:$light-ui-purple;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+  }
+
+  .room-pic{
+    width: 90%;
+    height: 35%;
+    margin: 0 auto;
+    // background-color: red;
+    // border: 2px solid $light-ui-purple;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .room-description{
+    width: 90%;
+    height: fit-content;
+    margin: 10px auto;
+    color: gray;
+    font-size: 1.2em;
+    text-align: center;
+  }
+
+  .room-author{
+    width: 90%;
+    height: fit-content;
+    margin: 10px auto;
+    color: $light-ui-purple;
+  }
+
+  .room-members-header{
+    width: 90%;
+    height: fit-content;
+    margin: 10px auto 0 auto;
+    color:$light-ui-purple;
+  }
+  .room-members{
+    width: 90%;
+    height: fit-content;
+    max-height: 60%;
+    margin: 0px auto 10px auto;
+    color:$light-ui-purple;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+
+
   }
 
 }

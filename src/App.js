@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 //components
 import SignIn from "./pages/sign-in/sign-in.component";
 import Room from "./pages/room/room.component";
+import Home from "./pages/home/home.component";
 
 //redux
 import { connect } from "react-redux";
@@ -45,8 +46,15 @@ const App = ({ currentUser, setCurrentUser }) => {
           exact
           render={() => (currentUser ? <Redirect to="/rooms" /> : <SignIn />)}
         />
-        <Route exact path="/rooms" component={Room}/>
-        <Route exact path="/rooms/:id" component={Room}/>
+        <Route
+          exact
+          path="/rooms"
+          render={() => (currentUser ? <Room /> : <SignIn />)}
+        />
+
+        <Route exact path="/rooms/:id" render={()=>(currentUser?<Room/>:<SignIn/>)} />
+        <Route exact path="/home" render={()=>(currentUser?<Home/>:<SignIn/>)} />
+        <Route exact path="/home/:id" render={()=>(currentUser?<Home/>:<SignIn/>)} />
       </Switch>
     </div>
   );
