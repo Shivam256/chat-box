@@ -24,6 +24,12 @@ const Room = ({setCurrentRoom}) => {
   console.log(id);
   const [room,setRoom] = useState({});
   const [loading,setLoading] = useState(true);
+
+  const setRoomsToEmpty = () =>{
+    setRoom({});
+    setCurrentRoom({});
+  }
+  
   useEffect(()=>{
     id?
     getRoom(id)
@@ -34,7 +40,7 @@ const Room = ({setCurrentRoom}) => {
       // setCurrentRoom(room);
       setLoading(false);
     })
-    :setRoom({})
+    :setRoomsToEmpty()
   },[id])
 
   return(
