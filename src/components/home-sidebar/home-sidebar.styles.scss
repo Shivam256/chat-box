@@ -173,4 +173,14 @@
       border: 2px solid $light-ui-white;
     }
   }
+
+  .sign-out-btn-container{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
+    
+  }
 }

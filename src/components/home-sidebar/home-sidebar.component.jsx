@@ -3,6 +3,7 @@ import "./home-sidebar.styles.scss";
 
 //utils
 import { getUserFriends ,updateUserCredentials,getAllUsers} from "../../utils/user.firebase";
+import {auth} from '../../firebase/firebase.utils';
 
 //components
 import SidebarKey from "../sidebar-key/sidebar-key.component";
@@ -44,6 +45,8 @@ const HomeSidebar = ({
   const [isDarkMode,setDarkMode] = useState(false);
   const [users,setUsers] = useState([]);
 
+  // let history = useHistory();
+
   useEffect(() => {
     // console.log(currentUser);
     getUserFriends(currentUser.uid).then((res) => {
@@ -73,6 +76,11 @@ const HomeSidebar = ({
   const handleSwitchChange = e => {
     setDarkMode(e.target.checked);
     // console.log(e.target.name,e.target.checked)
+  }
+  const handleSignOut = () =>{
+    auth.signOut();
+
+
   }
   return (
     <div className="home-sidebar">
@@ -132,8 +140,13 @@ const HomeSidebar = ({
                   onChange={handleSwitchChange}
                 />
               </div>
+              
               <button type="submit">SAVE</button>
             </form>
+            <div className="sign-out-btn-container">
+              <button className="sign-out-btn" onClick={handleSignOut}>SIGN OUT</button>
+
+            </div>
           </div>
         </Popup>
       ) : null}

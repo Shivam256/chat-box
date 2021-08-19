@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import "./App.scss";
 
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -15,11 +15,42 @@ import { createStructuredSelector } from "reselect";
 import { setCurrentUser } from "./redux/user/user.actions";
 
 //utils
-// import {auth,createUserDoc} from './firebase/firebase.utils';
+import { auth, createUserDoc } from "./firebase/firebase.utils";
+
+//libs
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import {useHistory} from 'react-router-dom';
 
 const App = ({ currentUser, setCurrentUser }) => {
-  // const [unsubscribe,setUnsubscribe] = useState(null);
+  let unsubscribeFromAuth = useRef(null);
+  let history = useHistory();
+  useEffect(() => {
+    unsubscribeFromAuth.current = auth.onAuthStateChanged(async (userAuth) => {
+      console.log(userAuth);
+      if (userAuth) {
+        const userRef = await createUserDoc(userAuth);
+        console.log(userRef);
 
+        userRef.onSnapshot((snapshot) => {
+          // console.log(snapshot);
+          setCurrentUser({
+            uid: snapshot.id,
+            ...snapshot.data(),
+          });
+        });
+      }else{
+        // console.log("YOU SIGNED OUT!");
+        setCurrentUser(userAuth);
+        history.push('/');
+      }
+      setCurrentUser(userAuth);
+    });
+
+    return () => {
+      unsubscribeFromAuth.current();
+    };
+  }, []);
   // useEffect(()=>{
   //   setUnsubscribe(auth.onAuthStateChanged(async userAuth =>{
   //     if(userAuth){
@@ -49,12 +80,80 @@ const App = ({ currentUser, setCurrentUser }) => {
         <Route
           exact
           path="/rooms"
-          render={() => (currentUser ? <Room /> : <SignIn />)}
+          render={() =>
+            currentUser ? (
+              <Room />
+            ) : (
+              <div className="loader-container">
+                {" "}
+                <Loader
+                  type="TailSpin"
+                  color="#7209B7"
+                  height={80}
+                  width={80}
+                />
+              </div>
+            )
+          }
         />
 
-        <Route exact path="/rooms/:id" render={()=>(currentUser?<Room/>:<SignIn/>)} />
-        <Route exact path="/home" render={()=>(currentUser?<Home/>:<SignIn/>)} />
-        <Route exact path="/home/:id" render={()=>(currentUser?<Home/>:<SignIn/>)} />
+        <Route
+          exact
+          path="/rooms/:id"
+          render={() =>
+            currentUser ? (
+              <Room />
+            ) : (
+              <div className="loader-container">
+                {" "}
+                <Loader
+                  type="TailSpin"
+                  color="#7209B7"
+                  height={80}
+                  width={80}
+                />
+              </div>
+            )
+          }
+        />
+        <Route
+          exact
+          path="/home"
+          render={() =>
+            currentUser ? (
+              <Home />
+            ) : (
+              <div className="loader-container">
+                {" "}
+                <Loader
+                  type="TailSpin"
+                  color="#7209B7"
+                  height={80}
+                  width={80}
+                />
+              </div>
+            )
+          }
+        />
+        <Route
+          exact
+          path="/home/:id"
+          render={() =>
+            currentUser ? (
+              <Home />
+            ) : (
+              <div className="loader-container">
+                {" "}
+                <Loader
+                  type="TailSpin"
+                  color="#7209B7"
+                  height={80}
+                  width={80}
+                />
+              </div>
+            )
+          }
+        />
       </Switch>
     </div>
   );

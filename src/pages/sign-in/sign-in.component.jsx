@@ -25,14 +25,13 @@ const SignIn = ({setCurrentUser}) => {
     // console.log(userSnap.data());
     
     
-    
   }
   return (
     <div className="sign-in-page">
       <div className="sign-in-card">
         <ForumIcon/>
         <div className="sign-in-text">SIGN IN WITH</div>
-        <button className="sign-in-btn" onClick={signIn}>GOOGLE</button>
+        <button className="sign-in-btn" onClick={signInWithGoogle}>GOOGLE</button>
       </div>
     </div>
   )
