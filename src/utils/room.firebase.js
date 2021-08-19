@@ -80,11 +80,11 @@ export const deleteMessagesFromRoom = async (roomId) =>{
   const msgRef = firestore.doc(url).collection("messages");
 
   const msgSnap = await msgRef.get();
-  console.log(msgSnap)
+  // console.log(msgSnap)
 }
 
 export const createNewRoom = async (name,description,imageURL,creatorId) =>{
-  console.log(`wrkjnw/${creatorId}`);
+  // console.log(`wrkjnw/${creatorId}`);
   const room = {
     name,
     description,
@@ -92,12 +92,12 @@ export const createNewRoom = async (name,description,imageURL,creatorId) =>{
     creator:firestore.doc(`/users/${creatorId}`),
     members:[firestore.doc(`/users/${creatorId}`)]
   }
-  console.log(room);
+  // console.log(room);
 
   const res = await firestore.collection('rooms').add(room).catch(err => {
     console.log('error creating room',err);
   })
-  console.log(res);
+  // console.log(res);
   const currnetRoomDoc = firestore.doc(`/rooms/${res.id}`);
 
   //add the room to the user

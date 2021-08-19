@@ -30,12 +30,12 @@ export const joinRoom = async (userId, roomId) => {
     const newUser = await userRef.update({
       rooms: firebase.firestore.FieldValue.arrayUnion(roomRef),
     });
-    console.log(newUser);
+    // console.log(newUser);
 
     const newRoom = await roomRef.update({
       members: firebase.firestore.FieldValue.arrayUnion(userRef),
     });
-    console.log(newRoom);
+    // console.log(newRoom);
   } catch (err) {
     console.log("ERROR IN JOINING ROOM!", err);
   }
@@ -49,12 +49,12 @@ export const leaveRoom = async (userId, roomId) => {
     const newUser = await userRef.update({
       rooms: firebase.firestore.FieldValue.arrayRemove(roomRef),
     });
-    console.log(newUser);
+    // console.log(newUser);
 
     const newRoom = await roomRef.update({
       members: firebase.firestore.FieldValue.arrayRemove(userRef),
     });
-    console.log(newRoom);
+    // console.log(newRoom);
   } catch (err) {
     console.log("ERROR IN JOINING ROOM!", err);
   }
@@ -98,9 +98,9 @@ export const addFriend = async (userId, friendId) => {
         messageCollection: friendMessageCollection,
       });
 
-    console.log(userRes);
+    // console.log(userRes);
   } else {
-    console.log(frd[0].data());
+    // console.log(frd[0].data());
   }
 };
 
@@ -157,3 +157,25 @@ export const sendMessageToFriend = async (
       console.log("ERROR SENDING MESSAGE TO FRIEND!", err);
     });
 };
+
+export const updateUserCredentials = async (userId,username,profilePic) =>{
+  const userRef = firestore.doc(`/users/${filterId(userId)}`);
+  const res = await userRef.update({
+    username,
+    profilePic
+  }).catch(err =>{
+    console.log('ERROR UPDATEING USER INFO!')
+  })
+  console.log(res);
+}
+
+export const getAllUsers = async (userId) => {
+  const usersDoc = firestore.collection('users');
+  const usersSnap = await usersDoc.get();
+  const userDocs = usersSnap.docs.filter(doc => filterId(doc.id) !== filterId(userId))
+  const users = userDocs.map(doc => ({...doc.data(),uid:doc.id}));
+ 
+  // const newUsers = users.filter(user => filterId(user.uid) !== filterId(userId));
+  // console.log(users);
+  return users;
+}

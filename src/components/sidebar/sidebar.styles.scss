@@ -1,6 +1,6 @@
 @import "../../utils/variables.scss";
 
-.sidebar{
+.sidebar {
   width: 20%;
   max-width: 20%;
   height: 100vh;
@@ -9,46 +9,33 @@
   display: flex;
   flex-direction: column;
 
-  .home-btn{
-    width: 100%;
-    // height: 8%;
-    // background-color: red;
-    padding: 0.5em 0;
-    display: grid;
-    place-items: center;
-    font-size: 1.5em;
-    margin-top: 10px;
-    border-top: 2px solid $light-ui-purple;
-    border-bottom: 2px solid $light-ui-purple;
+  .home-btn {
+    @include sidebar-header-btn;
+    background: none;
+    background-color: $light-ui-white;
     color: $light-ui-purple;
-    font-weight: 600;
-    letter-spacing: 2px;
-    cursor: pointer;
-
-    &:hover{
-      background: $purple-gradient;
-      color:$light-ui-white;
-    }
+  }
+  .room-btn{
+    @include sidebar-header-btn;
   }
 
-  .sidebar-key-container{
+  .sidebar-key-container {
     width: 100%;
     height: 50%;
     max-height: 45%;
     // background-color: red;
-    margin-top: 5em;
+    margin-top: 2em;
     margin-bottom: 2em;
     overflow-y: scroll;
     border: 1px solid $light-ui-purple;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
   }
 }
 
-
-.create-room-container{
+.create-room-container {
   width: 80%;
   height: 96%;
   // background-color: red;
@@ -57,21 +44,19 @@
   // flex-direction: column;
   // align-items: center;
 
-
-
-  h1{
+  h1 {
     text-align: center;
     margin: 0;
     color: $light-ui-purple;
   }
-  form{
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
   }
 
-  .create-room-btn{
+  .create-room-btn {
     width: fit-content;
     height: fit-content;
     padding: 10px 20px;
@@ -85,14 +70,14 @@
     cursor: pointer;
     margin-top: 20px;
 
-    &:hover{
+    &:hover {
       background: $purple-gradient;
-      color:$light-ui-white
+      color: $light-ui-white;
     }
   }
 }
 
-.join-room-container{
+.join-room-container {
   width: 80%;
   height: 96%;
   // background-color: red;
@@ -101,15 +86,13 @@
   // flex-direction: column;
   // align-items: center;
 
-
-
-  h1{
+  h1 {
     text-align: center;
     margin: 0;
     color: $light-ui-purple;
   }
 
-  .search-bar-container{
+  .search-bar-container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -117,7 +100,7 @@
     justify-content: space-between;
     margin-top: 1em;
 
-    input{
+    input {
       width: 70%;
       height: 1.5em;
       border: none;
@@ -126,7 +109,7 @@
       color: $light-ui-pink;
     }
 
-    button{
+    button {
       height: fit-content;
       width: fit-content;
       padding: 5px 20px;
@@ -136,15 +119,14 @@
       background-color: $light-ui-white;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         background-color: $light-ui-purple;
-        color:$light-ui-white
+        color: $light-ui-white;
       }
     }
-    
   }
 
-  .room-preview-container{
+  .room-preview-container {
     width: 100%;
     height: 70%;
     max-height: 70%;
@@ -152,7 +134,7 @@
     margin: 20px 0;
     overflow-y: scroll;
 
-    &::-webkit-scrollbar{
+    &::-webkit-scrollbar {
       display: none;
     }
   }

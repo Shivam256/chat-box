@@ -14,10 +14,15 @@ import {createStructuredSelector} from 'reselect';
 //utils
 import {addFriend } from '../../utils/user.firebase';
 
-const UserPreview = ({ user ,currentUser}) => {
+//libs
+import {useHistory} from 'react-router-dom';
 
+const UserPreview = ({ user ,currentUser}) => {
+  let history = useHistory()
   const handleMessage = async () =>{
     await addFriend(currentUser.uid,user.uid);
+    history.push(`/home/${user.uid}`);
+    
   }
   return (
     <div className="user-preview-container">

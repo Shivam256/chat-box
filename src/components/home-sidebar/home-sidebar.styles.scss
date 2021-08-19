@@ -32,13 +32,19 @@
       color:$light-ui-white;
     }
   }
+  .room-btn{
+    @include sidebar-header-btn;
+    background: none;
+    background-color: $light-ui-white;
+    color: $light-ui-purple;
+  }
 
   .sidebar-key-container{
     width: 100%;
     height: 50%;
     max-height: 45%;
     // background-color: red;
-    margin-top: 5em;
+    margin-top: 1em;
     margin-bottom: 2em;
     overflow-y: scroll;
     border: 1px solid $light-ui-purple;
@@ -64,6 +70,54 @@
     margin: 0;
     color: $light-ui-purple;
   }
+  .search-bar-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+
+    input{
+      width: 70%;
+      height: 1.5em;
+      border: none;
+      border: 2px solid $light-ui-purple;
+      border-radius: 10px;
+      color: $light-ui-pink;
+    }
+
+    button{
+      height: fit-content;
+      width: fit-content;
+      padding: 5px 20px;
+      border: 2px solid $light-ui-purple;
+      border-radius: 10px;
+      color: $light-ui-purple;
+      background-color: $light-ui-white;
+      cursor: pointer;
+
+      &:hover{
+        background-color: $light-ui-purple;
+        color:$light-ui-white
+      }
+    }
+    
+  }
+
+  
+  .user-overview-container{
+    width: 100%;
+    height: 70%;
+    max-height: 70%;
+    background-color: $light-ui-white;
+    margin: 20px 0;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar{
+      display: none;
+    }
+  }
 }
 
 .settings-container{
@@ -71,15 +125,22 @@
   height: 96%;
   // background-color: red;
   margin: 2% auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
   // justify-content: space-around;
 
   h1{
     text-align: center;
     margin: 0;
     color: $light-ui-purple;
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin-top: 30px;
   }
 
   .dark-mode-container{
@@ -96,6 +157,7 @@
     width: fit-content;
     height: fit-content;
     padding: 10px 20px;
+    margin: 0 auto;
     // background: $purple-gradient;
     background-color: $light-ui-white;
     border: 2px solid $light-ui-purple;

@@ -27,19 +27,19 @@ const HomeContainer = ({ friend, currentUser }) => {
   useEffect(() => {
     getChatMessageId(currentUser.uid, friend.uid)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setMsgCollectionId(res);
         return res;
       })
       .then((id) => {
         const url = `/messages/${filterId(id)}`;
-        console.log(url);
+        // console.log(url);
         firestore
           .doc(url)
           .collection("chat")
           .orderBy("timestamp", "asc")
           .onSnapshot((snapshot) => {
-            console.log(snapshot);
+            // console.log(snapshot);
             setMessages(snapshot.docs.map((doc) => doc.data()));
           });
       });

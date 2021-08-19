@@ -74,10 +74,10 @@ const Sidebar = ({
     const {roomName,roomDes,roomImgURL} = roomInfo;
     await createNewRoom(roomName,roomDes,roomImgURL,currentUser.uid);
 
-    getUser(currentUser.uid)
-    .then(res =>{
-      setCurrentUser(res);
-    })
+    // getUser(currentUser.uid)
+    // .then(res =>{
+    //   setCurrentUser(res);
+    // })
 
     toggleCreateRoomHidden();
     setAllRooms({
@@ -96,6 +96,7 @@ const Sidebar = ({
   return (
     <div className="sidebar">
      <Link to='/home'> <div className="home-btn">HOME</div></Link>
+     <div className="room-btn">ROOMS</div>
       <div className="sidebar-key-container">
         {rooms.map((room) => (
           <SidebarKey

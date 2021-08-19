@@ -16,9 +16,14 @@ const SignIn = ({setCurrentUser}) => {
     console.log(userObj.user);
     // const userRef =await createUserDoc(userObj.user);
     const userRef = await saveUserDoc(userObj.user);
-    const userSnap = await userRef.get();
+    // const userSnap = await userRef.get();
+
+    userRef.onSnapshot(snapshot => {
+      // console.log(snapshot.data());
+      setCurrentUser({...snapshot.data(),uid:userObj.user.uid});
+    })
     // console.log(userSnap.data());
-    setCurrentUser({...userSnap.data(),uid:userObj.user.uid});
+    
     
     
   }

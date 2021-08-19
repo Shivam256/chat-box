@@ -18,10 +18,10 @@ const RoomOverview = ({room,currentUser,setCurrentUser}) => {
   const [isJoined,setIsJoined] = useState(false);
   useEffect(()=>{
     const userId = currentUser.uid;
-    console.log(userId);
+    // console.log(userId);
     room.members.forEach(member => {
       if(member.id === userId){
-        console.log("same user!");
+        // console.log("same user!");
         setIsJoined(true);
       }
     })
@@ -29,19 +29,19 @@ const RoomOverview = ({room,currentUser,setCurrentUser}) => {
 
   const handleJoinRoom = async () =>{
     await joinRoom(currentUser.uid,room.uid);
-    getUser(currentUser.uid)
-    .then(res =>{
-      setCurrentUser(res);
-    })
+    // getUser(currentUser.uid)
+    // .then(res =>{
+    //   setCurrentUser(res);
+    // })
 
   }
 
   const handleRoomLeave = async ()=>{
     await leaveRoom(currentUser.uid,room.uid);
-    getUser(currentUser.uid)
-    .then(res =>{
-      setCurrentUser(res);
-    })
+    // getUser(currentUser.uid)
+    // .then(res =>{
+    //   setCurrentUser(res);
+    // })
 
   }
   return (

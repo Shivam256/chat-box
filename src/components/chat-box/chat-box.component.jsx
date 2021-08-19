@@ -8,7 +8,7 @@ const ChatBox = ({messages}) => {
   const messegesEndRef = useRef(null)
   useEffect(()=>{
     messegesEndRef.current.scrollIntoView({behavior:"smooth"})
-    console.log(messages);
+    // console.log(messages);
   },[messages])
   return(
     <div className="chat-box">

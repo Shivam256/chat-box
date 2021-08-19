@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import "./home-sidebar.styles.scss";
 
 //utils
-import { getUserFriends } from "../../utils/user.firebase";
+import { getUserFriends ,updateUserCredentials,getAllUsers} from "../../utils/user.firebase";
 
 //components
 import SidebarKey from "../sidebar-key/sidebar-key.component";
 import IconButton from "../icon-button/icon-button.component";
 import Popup from "../popup/popup.component";
 import FormInput from "../form-input/form-input.component";
+import UserOverview from '../user-overview/user-overview.component';
 
 //redux
 import { connect } from "react-redux";
@@ -25,6 +26,7 @@ import { createStructuredSelector } from "reselect";
 
 //libs
 import Switch from "@material-ui/core/Switch";
+import {Link} from 'react-router-dom';
 
 const HomeSidebar = ({
   currentUser,
@@ -34,17 +36,48 @@ const HomeSidebar = ({
   settingsHidden,
 }) => {
   const [friends, setFriends] = useState([]);
+  const [userInfo,setuserInfo] = useState({
+    username:currentUser.username,
+    profilePic:currentUser.profilePic,
+    darkMode:false
+  })
+  const [isDarkMode,setDarkMode] = useState(false);
+  const [users,setUsers] = useState([]);
 
   useEffect(() => {
+    console.log(currentUser);
     getUserFriends(currentUser.uid).then((res) => {
       Promise.all(res).then((result) => {
         setFriends(result);
       });
     });
+
+    getAllUsers(currentUser.uid)
+    .then(res => {
+      setUsers(res);
+    })
   }, [currentUser]);
+
+  const handleChange = (e) =>{
+    // console.log(e.target.name,e.target.value);
+    setuserInfo({...userInfo,[e.target.name]:e.target.value})
+  }
+
+  const handleSubmit = async e =>{
+    e.preventDefault();
+    const {username,profilePic} = userInfo;
+    await updateUserCredentials(currentUser.uid,username,profilePic);
+    toggleSettingsHidden();
+
+  }
+  const handleSwitchChange = e => {
+    setDarkMode(e.target.checked);
+    // console.log(e.target.name,e.target.checked)
+  }
   return (
     <div className="home-sidebar">
-      <div className="home-btn">HOME</div>
+      <div className="home-btn">HOME</div> 
+      <Link to="/rooms"><div className="room-btn">ROOMS</div></Link>
       <div className="sidebar-key-container">
         {friends.map((friend) => (
           <SidebarKey
@@ -60,15 +93,22 @@ const HomeSidebar = ({
         text="FIND PEOPLE"
         onClick={toggleFindUserHidden}
       />
-      {
-        !findUserHidden ? 
+      {!findUserHidden ? (
         <Popup>
           <div className="find-user-container">
             <h1>CONNECT WITH PEOPLE</h1>
+            <div className="search-bar-container">
+              <input type="text" />
+              <button>SEARCH</button>
+            </div>
+            <div className="user-overview-container">
+              {
+                users.map(user => <UserOverview user={user} currentUser={currentUser} key={user.uid}/>)
+              }
+            </div>
           </div>
-        </Popup> 
-        : null
-      }
+        </Popup>
+      ) : null}
 
       <IconButton
         iconName="settings"
@@ -79,18 +119,21 @@ const HomeSidebar = ({
         <Popup>
           <div className="settings-container">
             <h1>SETTINGS</h1>
-            <FormInput label="CHANGE USERNAME:" name="newUsername" />
-            <FormInput label="CHANGE PROFILE PIC:" name="newUsername" />
-            <div className="dark-mode-container">
-              DARK MODE:
-              <Switch
-                
-                color="primary"
-                name="checkedB"
-                inputProps={{ "aria-label": "primary checkbox" }}
-              />
-            </div>
-            <button type="submit">SAVE</button>
+            <form onSubmit={handleSubmit}>
+              <FormInput label="CHANGE USERNAME:" name="username" onChange={handleChange} value={userInfo.username}/>
+              <FormInput label="CHANGE PROFILE PIC:" name="profilePic" onChange={handleChange} value={userInfo.profilePic}/>
+              <div className="dark-mode-container">
+                DARK MODE:
+                <Switch
+                  color="primary"
+                  checked={isDarkMode}
+                  name="darkMode"
+                  inputProps={{ "aria-label": "primary checkbox" }}
+                  onChange={handleSwitchChange}
+                />
+              </div>
+              <button type="submit">SAVE</button>
+            </form>
           </div>
         </Popup>
       ) : null}
