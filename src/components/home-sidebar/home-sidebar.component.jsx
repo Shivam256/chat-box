@@ -45,7 +45,7 @@ const HomeSidebar = ({
   const [users,setUsers] = useState([]);
 
   useEffect(() => {
-    console.log(currentUser);
+    // console.log(currentUser);
     getUserFriends(currentUser.uid).then((res) => {
       Promise.all(res).then((result) => {
         setFriends(result);

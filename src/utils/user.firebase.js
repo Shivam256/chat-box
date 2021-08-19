@@ -166,7 +166,7 @@ export const updateUserCredentials = async (userId,username,profilePic) =>{
   }).catch(err =>{
     console.log('ERROR UPDATEING USER INFO!')
   })
-  console.log(res);
+  // console.log(res);
 }
 
 export const getAllUsers = async (userId) => {

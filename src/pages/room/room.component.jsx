@@ -21,7 +21,7 @@ import {setCurrentRoom} from '../../redux/room/room.actions';
 
 const Room = ({setCurrentRoom}) => {
   const {id} = useParams();
-  console.log(id);
+  // console.log(id);
   const [room,setRoom] = useState({});
   const [loading,setLoading] = useState(true);
 
@@ -29,12 +29,12 @@ const Room = ({setCurrentRoom}) => {
     setRoom({});
     setCurrentRoom({});
   }
-  
+
   useEffect(()=>{
     id?
     getRoom(id)
     .then(res => {
-      console.log(room);
+      // console.log(room);
       setRoom(res);
       // console.log(room);
       // setCurrentRoom(room);

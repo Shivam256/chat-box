@@ -29,7 +29,7 @@ const RoomInfo = ({room}) => {
       })
     })
     
-    console.log(room);
+    // console.log(room);
    
     
   },[room])
